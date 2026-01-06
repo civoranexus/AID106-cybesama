@@ -1,5 +1,11 @@
-def text_to_speech(text, language):
+import pyttsx3
+
+engine = pyttsx3.init()
+
+def text_to_speech(text, language="hi"):
     """
-    Simulated Text-to-Speech
+    Converts text to speech
     """
-    return f"[AUDIO OUTPUT in {language}] {text}"
+    engine.say(text)
+    engine.runAndWait()
+    return "AUDIO_PLAYED"
