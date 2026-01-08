@@ -6,12 +6,11 @@ from scipy.io.wavfile import write
 model = whisper.load_model("small")
 
 def record_audio(duration=5, fs=16000):
-    print("🎤 Listening...")
     audio = sd.rec(int(duration * fs), samplerate=fs, channels=1)
     sd.wait()
     return fs, audio
 
-def speech_to_text(audio_input=None, language="hi"):
+def speech_to_text(audio_input=None, language="en"):
     """
     Records voice and converts to text
     """
