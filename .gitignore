@@ -50,6 +50,14 @@ temp/
 *.tmp
 *.temp
 
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+
 # Package lock files (optional - uncomment if needed)
 # package-lock.json
 # yarn.lock
+
+# env 
+.env
