@@ -17,5 +17,5 @@ def query_knowledge(nlu_result):
         }
 
     return {
-        "answer": "माफ कीजिए, मैं आपकी मदद नहीं कर पाया"
+        "answer": "माफ कीजिए, मैं आपकी बात समझ नहीं पाया"
     }
