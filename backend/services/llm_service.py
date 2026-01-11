@@ -1,4 +1,5 @@
-from schemas.info import InfoResponse
+from database.schemas.info import InfoResponse
+
 
 def handle_llm_fallback(query: str) -> InfoResponse:
     # Placeholder (actual LLM call later)

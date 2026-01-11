@@ -1,4 +1,5 @@
-from schemas.scheme import SchemeResponse, EligibilityCheck
+from database.schemas.scheme import SchemeResponse, EligibilityCheck
+
 
 def handle_scheme_eligibility(query: str, user_context: dict) -> SchemeResponse:
     # Example: PM Awas Yojana

@@ -1,25 +1,25 @@
-from stt.stt_service import speech_to_text
-from tts.tts_service import text_to_speech
-from llm import generate_response
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-def run_voice_assistant():
-    print("VoiceAid AI started")
-    print("🎤 Listening...")
+from voice.voice import router as voice_router
 
-    text = speech_to_text(language="en")
-    if not text:
-        print("No speech detected")
-        return
+app = FastAPI(title="VoiceAid AI")
 
-    print("You said:", text)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-    response = generate_response(text)
-    print("Response:", response)
+app.include_router(voice_router)
 
-    text_to_speech(response)
 
-if __name__ == "__main__":
-    run_voice_assistant()
+@app.get("/")
+def health():
+    return {"status": "VoiceAid backend running"}
+
 
     
 
