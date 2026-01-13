@@ -28,19 +28,14 @@ export default function VoiceInput({ onResult }: { onResult: (text: string) => v
       setListening(false);
     };
 
-    recognition.onerror = () => {
-      setListening(false);
-      alert("Voice recognition failed");
-    };
+    recognition.onerror = () => setListening(false);
 
     recognition.start();
   };
 
   return (
-    <div>
-      <button onClick={startListening}>
-        {listening ? "Listening..." : "🎤 Speak"}
-      </button>
-    </div>
+    <button onClick={startListening}>
+      {listening ? "Listening..." : "🎤 Speak"}
+    </button>
   );
 }

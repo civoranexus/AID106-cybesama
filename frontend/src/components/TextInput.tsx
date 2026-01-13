@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function TextInput({ onSubmit }: any) {
   const [value, setValue] = useState("");
 

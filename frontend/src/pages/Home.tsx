@@ -1,25 +1,31 @@
 import { useState } from "react";
-import { fetchScheme } from "../api/voiceaid";
 import TextInput from "../components/TextInput";
 import VoiceInput from "../components/VoiceInput";
 import SchemeCard from "../components/SchemeCard";
+import AudioPlayer from "../components/AudioPlayer";
+import { sendVoiceText } from "../api/voiceaid";
 
 export default function Home() {
-  const [scheme, setScheme] = useState<any>(null);
+  const [response, setResponse] = useState<any>(null);
+  const [audio, setAudio] = useState<string | null>(null);
 
-  const handleSearch = async (query: string) => {
-    const data = await fetchScheme(query);
-    setScheme(data);
+  const handleQuery = async (text: string) => {
+    const data = await sendVoiceText(text);
+    setResponse(data.text_response);
+    setAudio(data.audio_response);
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>VoiceAid AI</h1>
 
-      <TextInput onSubmit={handleSearch} />
-      <VoiceInput onResult={handleSearch} />
+      <TextInput onSubmit={handleQuery} />
+      <VoiceInput onResult={handleQuery} />
 
-      {scheme && <SchemeCard scheme={scheme} />}
+      {response?.data && <SchemeCard scheme={response.data} />}
+
+      <AudioPlayer audioBase64={audio} />
     </div>
   );
 }
+

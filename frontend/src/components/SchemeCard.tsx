@@ -1,4 +1,5 @@
-import { SchemeResponse } from "../types/scheme";
+import type { SchemeResponse } from "../types/scheme";
+
 
 export default function SchemeCard({ scheme }: { scheme: SchemeResponse }) {
   return (
