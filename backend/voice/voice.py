@@ -1,12 +1,18 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 from voice.pipeline import handle_voice_request
 
+router = APIRouter(prefix="/voice", tags=["voice"])
 
-router = APIRouter(prefix="/voice", tags=["Voice"])
+
+class VoiceQueryRequest(BaseModel):
+    text: str
+    user_context: dict = {}
 
 
 @router.post("/query")
-def voice_query():
-    return run_voice_pipeline()
-
-
+def voice_query(payload: VoiceQueryRequest):
+    return handle_voice_request(
+        text=payload.text,
+        user_context=payload.user_context
+    )

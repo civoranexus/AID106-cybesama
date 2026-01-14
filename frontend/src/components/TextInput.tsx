@@ -1,16 +1,19 @@
-import { useState } from "react";
+type Props = {
+  value: string;
+  onChange: (v: string) => void;
+  onSubmit: (v: string) => void;
+};
 
-export default function TextInput({ onSubmit }: any) {
-  const [value, setValue] = useState("");
-
+export default function TextInput({ value, onChange, onSubmit }: Props) {
   return (
     <div>
       <input
         placeholder="Enter scheme name"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
       <button onClick={() => onSubmit(value)}>Search</button>
     </div>
   );
 }
+
