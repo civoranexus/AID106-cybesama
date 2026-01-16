@@ -1,8 +1,9 @@
 from database.schemas.scheme import SchemeResponse, EligibilityCheck
+from services.llm_service import explain_scheme_with_llm
 
 
 def handle_scheme_eligibility(query: str, user_context: dict) -> SchemeResponse:
-    # Example: PM Awas Yojana
+    # Example: PM Awas Yojana (hardcoded for now)
     checks = [
         EligibilityCheck(
             condition="Annual income below ₹3,00,000",
@@ -16,7 +17,7 @@ def handle_scheme_eligibility(query: str, user_context: dict) -> SchemeResponse:
 
     eligible = all(check.satisfied for check in checks)
 
-    return SchemeResponse(
+    response = SchemeResponse(
         success=True,
         message="Eligibility evaluated",
         source="hybrid",
@@ -26,10 +27,15 @@ def handle_scheme_eligibility(query: str, user_context: dict) -> SchemeResponse:
         benefits=[
             "Financial assistance up to ₹1.2 lakh"
         ],
-        next_steps=["Visit CSC center"] if eligible else None
+        next_steps=["Visit nearest CSC center"] if eligible else None
     )
 
+    # 🔑 STEP 9: Grounded LLM explanation (SAFE)
+    response.explanation = explain_scheme_with_llm(response)
+
+    return response
+
+
 def handle_scheme_info(query: str):
-    return {
-        # later replaced with InfoResponse (DB fetch)
-    }
+    # Placeholder — will be replaced by DB-backed InfoResponse
+    return None
